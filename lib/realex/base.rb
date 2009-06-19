@@ -25,7 +25,7 @@ module Realex
       puts xml
       uri = URI.parse("https://epage.payandshop.com/epage-remote-plugins.cgi")
       req = Net::HTTP::Post.new(uri.path)
-      req.set_form_data({:xml => xml})
+      req.body = xml
       
       res = Net::HTTP.new(uri.host, uri.port)
       res.use_ssl = true
