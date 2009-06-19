@@ -1,0 +1,4 @@
+## Temporary configuration file until we have a proper implementation 
+
+REALEX_SECRET = ''
+REALEX_MERCHANT_ID = ''
