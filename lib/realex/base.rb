@@ -19,6 +19,22 @@ module Realex
       Time.now.strftime("%Y%m%d%H%M%S")
     end
     
+    def result
+      @xml ? @xml["result"].first.to_i : nil
+    end
+    
+    def message
+      @xml ? @xml["message"].first : nil
+    end
+    
+    def successful?
+      @xml ? self.result == 0 : false
+    end
+    
+    def response
+      @xml
+    end
+    
     private
     
     def post(xml)
@@ -36,7 +52,8 @@ module Realex
       
       case res
       when Net::HTTPSuccess
-        res.body
+        @xml = XmlSimple.xml_in(res.body)
+        self.successful?
       else
         raise "Connection Error"
       end
