@@ -8,8 +8,9 @@ card.number = 4263971921001307
 card.expdate = "0110"
 card.chname = 'John Smith'
 card.type = 'visa'
+
 if card.create
-  puts "Card Created"
+  puts card.message
 else
-  puts card.response.inspect
+  puts "Failed - #{card.message}"
 end

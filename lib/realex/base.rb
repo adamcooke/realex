@@ -16,7 +16,7 @@ module Realex
     end
     
     def timestamp
-      Time.now.strftime("%Y%m%d%H%M%S")
+      @timestamp ||= Time.now.strftime("%Y%m%d%H%M%S")
     end
     
     def result
@@ -38,13 +38,21 @@ module Realex
     private
     
     def post(xml)
-      puts xml
       uri = URI.parse("https://epage.payandshop.com/epage-remote-plugins.cgi")
       req = Net::HTTP::Post.new(uri.path)
       req.body = xml
       
       res = Net::HTTP.new(uri.host, uri.port)
       res.use_ssl = true
+      
+      root_ca = File.join(File.dirname(__FILE__), 'ca-bundle.crt')
+      if File.exist?(root_ca)
+        res.ca_file = root_ca
+        res.verify_mode = OpenSSL::SSL::VERIFY_PEER
+        res.verify_depth = 5
+      else
+        res.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      end
       
       Timeout::timeout(10) do
         res = res.request(req)
