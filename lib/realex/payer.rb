@@ -21,7 +21,7 @@ module Realex
         xml.orderid self.orderid
         xml.payer(:type => 'Business', :ref => self.payerref) do
           xml.firstname   self.firstname
-          xml.lastname self.lastname
+          xml.surname self.lastname
           xml.company self.company
         end
       end

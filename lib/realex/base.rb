@@ -3,6 +3,10 @@ module Realex
     
     attr_accessor :merchantid, :orderid, :amount, :currency, :payerref
     
+    def merchantid
+      @merchantid || REALEX_MERCHANT_ID
+    end
+    
     def orderid
       @orderid || "order#{timestamp}"
     end
